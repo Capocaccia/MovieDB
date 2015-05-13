@@ -10,10 +10,18 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
     </head>
     <body>
-      <div class="six-columns">
+      <div class="ten columns offset-by-one">
         <input id="movieName" class ="movie" placeholder="Enter movie name here"></input>
         <button class="search button-primary">Search!</button>
         <div class="movieContainer"></div>
+        <table class="table u-full-width">
+          <tr>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Release Date</th>
+            <th>Poster</th>
+          </tr>
+        </table>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
         <script src="main.js"></script>

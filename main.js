@@ -3,23 +3,7 @@ var title = $('.movie').val();
 var url = info + title;
 var FIREBASE_URL = "https://flickpicker.firebaseio.com/flicks.json"
 
-$.get(FIREBASE_URL, function (data) {
-  Object.keys(data).forEach(function (id) {
-		addMovieDetail(data[id]);
-  });
-});
-
-var $button = $('.movieContainer');
-$button.on("click",".btn",function() {
-  $($button).children().each(function() {
-    this.remove();
-  });
-
-})
-
-var movie = document.querySelector('.search');
-
-movie.onclick = function () {
+$('.search').on('click', function() {
   var input = document.querySelector("#movieName");
   var title = input.value;
   var url = info + title;
@@ -28,49 +12,39 @@ movie.onclick = function () {
     $.post(FIREBASE_URL, JSON.stringify(data));
     addMovieDetail(data);
   }, 'jsonp');
+});
+
+function addMovieDetail(data, id){
+  var $table=$(".table");
+  $table.append("<tr></tr>");
+  var $target=$("tr:last");
+  $target.attr("data-id", id);
+  $target.append("<td>" + data.Title + "</td>");
+  $target.append("<td>" + data.imdbRating + "</td>");
+  $target.append("<td>" + data.Year + "</td>");
+  $target.append("<td><img width='200' height='250' src=" + data.Poster + "></img></td>");
+  $target.append("<button class='delete'>Delete</button>");
 };
 
-function addMovieDetail(data) {
-
-  var detail = createMovieNode(data);
-  var target = $('.movieContainer');
-
-  target.empty();
-  target.append(detail);
-};
-
-function createMovieNode(flicks){
-  var docFragment = document.createDocumentFragment(); // contains all gathered nodes
-
-  var div = document.createElement('div');
-  div.setAttribute('class', 'movie2');
-  docFragment.appendChild(div);
-
-  var h1 = document.createElement('H1');
-  div.appendChild(h1);
-  var text = document.createTextNode(flicks.Title);
-  h1.appendChild(text);
-
-  var h2 = document.createElement('H2');
-  div.appendChild(h2);
-  var text_0 = document.createTextNode(flicks.imdbRating);
-  h2.appendChild(text_0);
-
-  var btn = document.createElement('button');
-  btn.setAttribute('class', 'btn btn-danger');
-  var btn_text = document.createTextNode('X');
-
-  btn.appendChild(btn_text);
-  div.appendChild(btn);
-
-  return docFragment;
-}
-
-//////OG code below
-/*  $.getJSON(url, function(data){
-    addMovieDetail(data);
-    console.log(data);
+$.get(FIREBASE_URL, function (movies) {
+  Object.keys(movies).forEach(function (id) {
+		addMovieDetail(movies[id], id);
   });
 });
-*/
 
+///Playing with my delete on click function here
+var $button = $('.table');
+$button.on("click", ".delete", function() {
+  var $movieRow = $(this).closest('tr');
+  var id = $movieRow.attr('data-id');
+  var deleteUrl = FIREBASE_URL.slice(0, -5) + '/' + id + '.json';
+    $.ajax({
+    url: deleteUrl,
+    type: 'DELETE',
+    success: function() {
+      $movieRow.remove();
+    }
+  })
+});
+//end playing
+//Im not sure how to add the data ID to each td and then select that id like im trying to do in lines 38 and 39
