@@ -9,10 +9,13 @@ $('.search').on('click', function() {
   var input = document.querySelector("#movieName");
   var title = input.value;
   var url = info + title;
-  console.log("hello");
-
+  var uid = fb.getAuth().uid;
+  var token = fb.getAuth().token;
+  var postUrl = `${FIREBASE_AUTH}/users/${uid}/flicks.json?auth=${token}`;
   $.get(url, function (data) {
-    $.post(FIREBASE_URL, JSON.stringify(data));
+    $.post(postUrl, JSON.stringify(data), function (res) {
+    console.log("Post Request Passed")
+  });
     addMovieDetail(data);
   }, 'jsonp');
 });
@@ -29,11 +32,11 @@ function addMovieDetail(data, id){
   $target.append("<button class='delete button-primary'>Delete</button>");
 };
 
-$.get(FIREBASE_URL, function (movies) {
-  Object.keys(movies).forEach(function (id) {
-		addMovieDetail(movies[id], id);
-  });
-});
+// $.get(FIREBASE_URL, function (movies) {
+//   Object.keys(movies).forEach(function (id) {
+// 		addMovieDetail(movies[id], id);
+//   });
+// });
 
 ///Playing with my delete on click function here
 var $button = $('.table');
@@ -75,6 +78,37 @@ $('.loginPageForm form').on('submit', function (evt) {
     }
   });
 });
+///ideas for posting UID to FB.
+// $('.loginPageForm form').on('submit', function (evt) {
+//   var email = $('.loginPageForm input[type="email"]').val();
+//   var password = $('.loginPageForm input[type="password"]').val();
+//   var onTempPassword = $('.onTempPassword');
+//   evt.preventDefault();
+//   fb.authWithPassword({
+//     email: email,
+//     password: password
+//   }, function (err, authData) {
+//     if (err) {
+//       alert(err.toString());
+//     } else if(authData && authData.password.isTemporaryPassword) {
+//       onTempPassword.removeClass('hidden');
+//     } else {
+//       debugger;
+//       var title = $('.input input[type="text"]').val();
+//       var uid = authData.uid;
+//       var token = authData.token;
+//       var postUrl = `${FIREBASE_AUTH}/users/${uid}/flicks.json?auth=${token}`;
+//       $.post(postUrl, JSON.stringify(title), function (res) {
+//         console.log("Post Request Passed");
+//     //addPhotosToDom({url: url});
+//     //clearForms();
+//     // res = { name: '-Jk4dfDd123' }
+//     })
+//       console.log("logged in")
+//       window.location = '/'
+//     }
+//   });
+// });
 
 // runs when called by registration button if  successful
 function doLogin (email, password, cb) {
@@ -92,6 +126,7 @@ function doLogin (email, password, cb) {
     }
   });
 }
+
 //saves the authentication data to firebase
 function saveAuthData (authData) {
   $.ajax({
