@@ -1,6 +1,12 @@
 body {
-  background-image:url("http://i.imgur.com/SDQPEFC.jpg");
+  background-image:url("http://i.imgur.com/TqsNnCn.jpg");
   background-size: 100%;
+  background-attachment: fixed;
   margin-top: 30px;
   text-align: center;
+  color: white;
+}
+
+.hidden {
+  display: none;
 }
