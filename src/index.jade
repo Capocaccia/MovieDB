@@ -1,0 +1,15 @@
+extends ./_partials/_layout
+include ./_partials/_header
+
+block content
+  .ten.columns.offset-by-one
+    input#movieName.movie(placeholder='Enter movie name here')
+    button.search.button-primary Search!
+    .movieContainer
+    table.table.u-full-width
+      tr
+        th Title
+        th Rating
+        th Release Date
+        th Poster
+    include ./_partials/_footer

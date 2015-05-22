@@ -1,0 +1,15 @@
+extends ./_partials/_layout
+include ./_partials/_header
+
+block content
+  .loginPageForm
+    h1
+      | Login to Carters Movie Emporium
+      h1
+        form
+          input(type='email', placeholder='email', required='required')
+          input(type='password', placeholder='password', required='required')
+          input.doRegister(type='button', value='Register')
+          input(type='submit', value='Login')
+          input.doResetPassword(type='button', value='Reset Password')
+  include ./_partials/_footer
