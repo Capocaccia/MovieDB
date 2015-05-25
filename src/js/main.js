@@ -4,7 +4,38 @@ var url = info + title;
 var FIREBASE_URL = "https://flickpicker.firebaseio.com/flicks.json"
 var FIREBASE_AUTH = 'https://flickpicker.firebaseio.com';
 var fb = new Firebase(FIREBASE_AUTH);
+var scoreArr = [];
 
+
+//taste test button works.
+$('.tasteTest').on('click', function(){
+  var scoreTotalArr = scoreArr.split(" ").map(Number);
+  var total = scoreTotalArr.reduce(function(prev, curr) {
+  return prev + curr;
+});
+if (total >= 45) {
+    alert("Hey, you know good film when you see it!  You should put down your friends opinions about movies now because your opinions are better and have been reaffirmed by me.  Got it?")
+  } else if (total >= 40) {
+    alert("Alright, you like good movies but have some guilty pleasures.  Its ok.  I like Mean Girls too.")
+    }
+    else if (total >= 35) {
+      alert("Sometimes I wonder if we mean the same thing by 'good'...")
+      }
+      else if(total >= 30) {
+        alert("Step your game up.  Might I recommend starting with 'Goodfellas or The Departed?'")
+        }
+        else if(total < 30){
+          alert("You probably talk and text in theaters and definitely dont deserve a Netflix account.")
+          }
+  console.log(total);
+});
+
+//on page load it checks if you are logged in.  If you arent, it sends you to login page.
+$( document ).ready(function() {
+if (window.location.pathname !== '/login.html' && !fb.getAuth()) {
+ window.location ='/login.html';
+    }
+  });
 
 //search button working and done
 $('.search').on('click', function() {
@@ -40,10 +71,13 @@ $(document).ready(function(){
   }
 });
 
+
 function addMovieDetail(data, id){
   var $table=$(".table");
     $table.append("<tr></tr>");
     var $target=$("tr:last");
+    scoreArr = scoreArr + Math.round(data.imdbRating) + " ";
+    console.log(scoreArr);
       $target.attr("data-id", id);
       $target.append("<td>" + data.Title + "</td>");
       $target.append("<td>" + data.imdbRating + "</td>");
@@ -87,6 +121,7 @@ $('.loginPageForm form').on('submit', function (evt) {
       alert(err.toString());
     } else if(authData && authData.password.isTemporaryPassword) {
       onTempPassword.removeClass('hidden');
+      alert("Please change your password now.")
     } else {
       //cb(authData);
       console.log("logged in")
@@ -203,10 +238,3 @@ $('.logout').on('click', function() {
   fb.unauth();
   window.location = '/'
 });
-
-//on page load it checks if you are logged in.  If you arent, it sends you to login page.
-$( document ).ready(function() {
-if (window.location.pathname !== '/login.html' && !fb.getAuth()) {
- window.location ='/login.html';
-    }
-  });
