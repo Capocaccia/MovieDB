@@ -2,16 +2,19 @@ extends ./_partials/_layout
 include ./_partials/_header
 
 block content
-  .ten.columns.offset-by-one
-    input#movieName.movie(placeholder='Enter movie name here')
-    button.search Search!
-    button.logout Logout!
-    button.tasteTest Taste Test (5 Movie Minimum)
-    .movieContainer
-    table.table.u-full-width
-      tr
-        th Title
-        th Rating
-        th Release Date
-        th Poster
+  .index
+    .ten.columns
+      input#movieName.movie(placeholder='Enter movie name here')
+      button.search Search!
+      button.tasteTest Taste Test (5 Movie Minimum)
+      button.logout Logout!
+      .movieContainer
+      table.table.u-full-width
+        tr
+          th Title
+          th Rating
+          th Release Date
+          th Poster
+    .two.columns.rating.hidden
+      button.remove Remove!
     include ./_partials/_footer

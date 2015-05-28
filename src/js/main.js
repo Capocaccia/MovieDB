@@ -10,11 +10,14 @@ var scoreArr = [];
 //taste test button works.
 $('.tasteTest').on('click', function(){
   var scoreTotalArr = scoreArr.split(" ").map(Number);
+  var $ttResult=$(".rating");
   var total = scoreTotalArr.reduce(function(prev, curr) {
   return prev + curr;
 });
 if (total >= 45) {
-    alert("Hey, you know good film when you see it!  You should put down your friends opinions about movies now because your opinions are better and have been reaffirmed by me.  Got it?")
+  addTasteTestResult(total);
+  $ttResult.append('<img src="http://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Certified_Fresh.svg/150px-Certified_Fresh.svg.png"</img>')
+    //alert("Hey, you know good film when you see it!  You should put down your friends opinions about movies now because your opinions are better and have been reaffirmed by me.  Got it?")
   } else if (total >= 40) {
     alert("Alright, you like good movies but have some guilty pleasures.  Its ok.  I like Mean Girls too.")
     }
@@ -26,9 +29,22 @@ if (total >= 45) {
         }
         else if(total < 30){
           alert("You probably talk and text in theaters and definitely dont deserve a Netflix account.")
-          }
-  console.log(total);
+          };
 });
+
+//appending taste test result to page
+function addTasteTestResult(total){
+    var $ttResult=$(".rating");
+    $ttResult.append("Taste Test Score: ", total);
+    $ttResult.removeClass('hidden');
+  }
+
+// //trying to get the taste test result to hide on button click
+  $('.remove').on('click', function(){
+    var $ttResult = $(".rating");
+    $ttResult.addClass("hidden");
+    $ttResult.remove('.rating');
+  })
 
 //on page load it checks if you are logged in.  If you arent, it sends you to login page.
 $( document ).ready(function() {
@@ -46,6 +62,7 @@ $('.search').on('click', function() {
   var token = fb.getAuth().token;
   var postUrl = `${FIREBASE_AUTH}/users/${uid}/flicks.json?auth=${token}`;
   $.get(url, function (data) {
+    console.log(data);
     if(data.Response === "True"){
     $.post(postUrl, JSON.stringify(data), function (res) {
     console.log("Post Request Passed")
@@ -77,17 +94,15 @@ function addMovieDetail(data, id){
     $table.append("<tr></tr>");
     var $target=$("tr:last");
     scoreArr = scoreArr + Math.round(data.imdbRating) + " ";
-    console.log(scoreArr);
       $target.attr("data-id", id);
       $target.append("<td>" + data.Title + "</td>");
       $target.append("<td>" + data.imdbRating + "</td>");
-      $target.append("<td>" + data.Year + "</td>");
+      $target.append("<td>" + data.Released + "</td>");
       $target.append("<td><img width='200' height='250' src=" + data.Poster + "></img></td>");
-      $target.append("<button class='delete button-primary'>Delete</button>");
+      $target.append("<button class='delete'>Delete</button>");
 };
 
-///Playing with my delete on click function here
-///works.  Deletes individual users data from firebase
+///Deletes individual users data from firebase
 var $button = $('.table');
 $button.on("click", ".delete", function() {
   var uid = fb.getAuth().uid;
@@ -103,8 +118,7 @@ $button.on("click", ".delete", function() {
     }
   })
 });
-//end playing
-//starting testing for firebase logns wed may 20th
+
 //everything below this point is for login.html
 
 //login button
@@ -123,8 +137,6 @@ $('.loginPageForm form').on('submit', function (evt) {
       onTempPassword.removeClass('hidden');
       alert("Please change your password now.")
     } else {
-      //cb(authData);
-      console.log("logged in")
       window.location = '/'
     }
   });

@@ -2,11 +2,22 @@ body {
   background-image:url("http://i.imgur.com/TqsNnCn.jpg");
   background-size: cover;
   background-attachment: fixed;
+}
+
+.index {
   margin-top: 30px;
   text-align: center;
+  font-family: 'Limelight', cursive;
   color: white;
 }
 
 .hidden {
   display: none;
+}
+
+.loginPage {
+  margin-top: 30px;
+  text-align: center;
+  font-family: 'Fontdiner Swanky', cursive;
+  color: white;
 }
