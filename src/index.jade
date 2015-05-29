@@ -4,7 +4,7 @@ include ./_partials/_header
 block content
   .index
     .ten.columns
-      input#movieName.movie(placeholder='Enter movie name here')
+      input#movieName.movieInputField(placeholder='Enter movie name here')
       button.search Search!
       button.tasteTest Taste Test (5 Movie Minimum)
       button.logout Logout!
@@ -15,6 +15,7 @@ block content
           th Rating
           th Release Date
           th Poster
-    .two.columns.rating.hidden
-      button.remove Remove!
+    .two.columns.ratingHolder
+      .rating.hidden
+      button.remove.hidden Remove!
     include ./_partials/_footer

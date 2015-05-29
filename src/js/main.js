@@ -34,16 +34,21 @@ if (total >= 45) {
 
 //appending taste test result to page
 function addTasteTestResult(total){
+    var $removeBtn = $('.remove')
     var $ttResult=$(".rating");
+    $removeBtn.removeClass('hidden');
     $ttResult.append("Taste Test Score: ", total);
     $ttResult.removeClass('hidden');
+
   }
 
 // //trying to get the taste test result to hide on button click
-  $('.remove').on('click', function(){
+$('.remove').on('click', function(){
     var $ttResult = $(".rating");
+    var $removeBtn = $('.remove')
+    $removeBtn.addClass('hidden');
     $ttResult.addClass("hidden");
-    $ttResult.remove('.rating');
+    $ttResult.empty('.rating');
   })
 
 //on page load it checks if you are logged in.  If you arent, it sends you to login page.
