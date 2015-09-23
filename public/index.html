@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>FlickPick</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=Limelight|Fontdiner+Swanky" rel="stylesheet" type="text/css">
+    <link rel="icon" href="http://i.imgur.com/EVjR6Z1.png" type="favicon.ico">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="index">
+        <div class="ten columns">
+          <input id="movieName" placeholder="Enter movie name here" class="movieInputField">
+          <button class="search">Search!</button>
+          <button class="tasteTest">Taste Test (5 Movie Minimum)</button>
+          <button class="logout">Logout!</button>
+          <div class="movieContainer"></div>
+          <table class="table u-full-width">
+            <tr>
+              <th>Title</th>
+              <th>Rating</th>
+              <th>Release Date</th>
+              <th>Poster</th>
+            </tr>
+          </table>
+        </div>
+        <div class="two columns ratingHolder">
+          <div class="rating">
+            <button class="remove">Remove!</button>
+          </div>
+        </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.2.5/firebase.js"></script>
+      <script src="js/main.js"></script>
+    </div>
+  </body>
+</html>
