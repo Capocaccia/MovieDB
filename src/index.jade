@@ -1,0 +1,21 @@
+extends ./_partials/_layout
+include ./_partials/_header
+
+block content
+  .index
+    .ten.columns
+      input#movieName.movieInputField(placeholder='Enter movie name here')
+      button.search Search!
+      button.tasteTest Taste Test (5 Movie Minimum)
+      button.logout Logout!
+      .movieContainer
+      table.table.u-full-width
+        tr
+          th Title
+          th Rating
+          th Release Date
+          th Poster
+    .two.columns.ratingHolder
+      .rating
+        button.remove Remove!
+    include ./_partials/_footer
