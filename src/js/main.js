@@ -53,7 +53,7 @@ $('.remove').on('click', function(){
 
 //on page load it checks if you are logged in.  If you arent, it sends you to login page.
 $( document ).ready(function() {
-if (window.location.pathname !== 'login.html' && !fb.getAuth()) {
+if (/login\.html/.test(window.location.pathname) && !fb.getAuth()) {
  window.location ='login.html';
     }
   });
@@ -81,7 +81,7 @@ $('.search').on('click', function() {
 
 //loads data per user and keeps its persisting
 $(document).ready(function(){
-  if (window.location.pathname === '/' && fb.getAuth() !== null){
+  if (!(/login\.html/.test(window.location.pathname)) && fb.getAuth() !== null){
     var uid = fb.getAuth().uid;
     var token = fb.getAuth().token;
     var MovieListUrl = `${FIREBASE_AUTH}/users/${uid}/flicks.json?auth=${token}`;
@@ -142,7 +142,7 @@ $('.loginPageForm form').on('submit', function (evt) {
       onTempPassword.removeClass('hidden');
       alert("Please change your password now.")
     } else {
-      window.location = '/'
+      window.location = 'index.html'
     }
   });
 });
@@ -158,7 +158,7 @@ function doLogin (email, password, cb) {
     } else {
       saveAuthData(authData);
       typeof cb === 'function' && cb(authData);
-      window.location = '/'
+      window.location = 'index.html'
       alert("Registration Successful!")
     }
   });
@@ -243,7 +243,7 @@ $('.onTempPassword form').submit(function () {
       alert(err.toString());
     } else {
       fb.unauth();
-      window.location = '/'
+      window.location = 'index.html'
     }
   });
 
@@ -253,5 +253,5 @@ $('.onTempPassword form').submit(function () {
 //logout button
 $('.logout').on('click', function() {
   fb.unauth();
-  window.location = '/'
+  window.location = 'index.html'
 });
