@@ -67,7 +67,7 @@ $('.search').on('click', function() {
   var token = fb.getAuth().token;
   var postUrl = `${FIREBASE_AUTH}/users/${uid}/flicks.json?auth=${token}`;
   $.get(url, function (data) {
-    console.log(data);
+    console.log(data.Poster);
     if(data.Response === "True"){
     $.post(postUrl, JSON.stringify(data), function (res) {
     console.log("Post Request Passed")
