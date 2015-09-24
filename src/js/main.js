@@ -53,8 +53,8 @@ $('.remove').on('click', function(){
 
 //on page load it checks if you are logged in.  If you arent, it sends you to login page.
 $( document ).ready(function() {
-if (window.location.pathname !== '/login.html' && !fb.getAuth()) {
- window.location ='/login.html';
+if (window.location.pathname !== 'login.html' && !fb.getAuth()) {
+ window.location ='login.html';
     }
   });
 
